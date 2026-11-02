@@ -22,7 +22,8 @@ Operations that can fail on valid-looking input return `std::optional` (normaliz
 vector, a rotation about a zero axis, inverting a singular matrix). No exceptions in the math
 layer: failure is an expected outcome, the caller must handle it, and it keeps hot paths cheap.
 Programmer errors (e.g. out-of-range matrix index) are not checked at runtime in this layer.
-Later phases that need an error reason will use a `Result<T, Error>` type.
+Operations that need to say *why* they failed (factories, sheet-metal unfolding) return
+`Result<T>` (`Result.h`): a value or an `Error{code, message}`.
 
 ## Ownership
 All types here are small value types (copyable, no heap, no pointers). There is nothing to own
